@@ -8,3 +8,27 @@ let countDown = setInterval(function() {
     clearInterval(countDown);
   }
 }, 1000);
+
+
+
+let currentHours, currentMinutes, currentSeconds;
+currentHours = 04;
+currentMinutes = 25;
+currentSeconds = 19;
+let currentTime = `${currentHours}:${currentMinutes}:${currentSeconds}`;
+
+
+function theFinalCountdown () {
+  let countDown = setInterval(function() {
+  document.getElementById("timer").innerHTML = currentTime;
+  currentSeconds--;
+  }, 1000);
+  if (currentSeconds === 00) {
+    currentMinutes--;
+  }
+  if (currentMinutes === 00) {
+    currentHours--;
+  }
+};
+
+theFinalCountdown();
