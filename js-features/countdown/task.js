@@ -36,11 +36,11 @@ let theFinalCountdown = setInterval(function() {
 
 
 
-let countDown = setInterval(function() {
-  document.getElementById("timer").innerHTML = currentCount;
-  currentCount--;
-  if (currentCount <= 0) {
-    window.location.assign("http://www.mozilla.org");
-    clearInterval(countDown);
-  }
-}, 1000);
+// let countDown = setInterval(function() {
+//   document.getElementById("timer").innerHTML = currentCount;
+//   currentCount--;
+//   if (currentCount <= 0) {
+//     window.location.assign("http://www.mozilla.org");
+//     clearInterval(countDown);
+//   }
+// }, 1000);
