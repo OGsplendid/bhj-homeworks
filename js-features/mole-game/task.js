@@ -20,19 +20,20 @@
       activeHole = Math.floor(1 + Math.random() * 9);
       activateHole(activeHole);
       next();
-      getHole.onclick = function() {
-        if (getHole(index).className === 'hole') {
-          scores++;
-        } else {
-          losses++;
-        }
-        if (scores === 10) {
-          alert('Victory!');
-        } else {
-          alert('You lose!');
-        }
-      }
     }, 800 );
-
+  
+  document.getElementById(`hole${activeHole}`).onclick = function() {
+    if (document.getElementById(`hole${activeHole}`).className === 'hole') {
+      scores++;
+    } else {
+      losses++;
+    }
+  }
+  if (scores === 10) {
+     alert('Victory!');
+   } else {
+     alert('You lose!');
+  }
+  
   next();
 })();
