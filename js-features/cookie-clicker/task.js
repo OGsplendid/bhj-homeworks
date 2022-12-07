@@ -1,12 +1,13 @@
 let initialTime = new Date();
 let button = document.getElementById('cookie');
+let counter = document.getElementById('clicker__counter');
 
 button.onclick = () => {
-  document.getElementById('clicker__counter').innerHTML++;
+  counter.innerHTML++;
   button.width = 200;
   let currentTime = new Date();
   let diffInSeconds = (currentTime.getTime() - initialTime.getTime()) / 1000;
-  let timing = diffInSeconds / clicker__counter.textContent;
+  let timing = counter.textContent / diffInSeconds;
   document.getElementById('clicker__time').textContent = timing.toFixed(2);
 };
 
