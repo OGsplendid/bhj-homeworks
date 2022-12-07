@@ -15,27 +15,26 @@ let currentHours, currentMinutes, currentSeconds;
 currentHours = 04;
 currentMinutes = 25;
 currentSeconds = 19;
-let currentTime = `${currentHours}:${currentMinutes}:${currentSeconds}`;
 
-
-function theFinalCountdown () {
-  let countDown = setInterval(function() {
-  document.getElementById("timer").innerHTML = currentTime;
+let theFinalCountdown = setInterval(function() {
+  document.getElementById("timerHours").innerHTML = currentHours;
+  document.getElementById("timerMinutes").innerHTML = currentMinutes;
+  document.getElementById("timerSeconds").innerHTML = currentSeconds;
   currentSeconds--;
-  }, 1000);
   if (currentSeconds === 00) {
     currentMinutes--;
+    currentSeconds = 59;
   }
   if (currentMinutes === 00) {
     currentHours--;
+    currentMinutes = 59;
   }
-};
+  if (currentHours === 0 && currentMinutes === 00 && currentSeconds === 00) {
+    clearInterval(theFinalCountdown);
+  }
+}, 1000);
 
-theFinalCountdown();
 
-
-
-let currentCount = 59;
 
 let countDown = setInterval(function() {
   document.getElementById("timer").innerHTML = currentCount;
