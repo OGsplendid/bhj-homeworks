@@ -1,39 +1,27 @@
-(() => {
-  let playing = true,
-    activeHole = 1;
+function startGame() {
+  let holes = document.getElementsByClassName('hole');
   let scores = 0;
   let losses = 0;
-  document.getElementById('dead').textContent = scores;
-  document.getElementById('lost').textContent = losses;
-
-  const stop = () => playing = true,
-    getHole = index => document.getElementById(`hole${index}`),
-    deactivateHole = index =>
-      getHole(index).className = 'hole',
-    activateHole = index =>
-      getHole(index).className = 'hole hole_has-mole',
-    next = () => setTimeout(() => {
-      if ( !playing ) {
-        return;
+  let timerId = setInterval(function() {
+    for (let i = 0; i < holes.length; i++) {
+      if (holes[i].className.includes('hole hole_has-mole')) {
+        holes[i].className = 'hole';
       }
-      deactivateHole(activeHole);
-      activeHole = Math.floor(1 + Math.random() * 9);
-      activateHole(activeHole);
-      next();
-    }, 800 );
-  
-  document.getElementById(`hole${activeHole}`).onclick = function() {
-    if (document.getElementById(`hole${activeHole}`).className === 'hole') {
-      scores++;
-    } else {
-      losses++;
+      if (i === Math.floor(Math.random() * 8)) {
+        holes[i].className = 'hole hole_has-mole';
+      }
+      holes[i].onclick = function() {
+        if (holes[i].className.includes('hole hole_has-mole')) {
+          scores++;
+        } else {
+          losses++;
+        }
+      }
     }
-  }
+  }, 1000);
   if (scores === 10) {
-     alert('Victory!');
-   } else {
-     alert('You lose!');
+    alert('You win!');
+  } else if (losses === 10) {
+    alert('You lose!');
   }
-  
-  next();
-})();
+}
