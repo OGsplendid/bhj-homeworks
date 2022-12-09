@@ -4,17 +4,17 @@ let countDown = setInterval(function() {
   document.getElementById("timer").innerHTML = currentCount;
   currentCount--;
   if (currentCount < 0) {
-    alert('Вы победили в конкурсе!');
     clearInterval(countDown);
+    alert('Вы победили в конкурсе!');
   }
 }, 1000);
 
 
 
 let currentHours, currentMinutes, currentSeconds;
-currentHours = 04;
-currentMinutes = 01;
-currentSeconds = 10;
+currentHours = 0;
+currentMinutes = 0;
+currentSeconds = 15;
 
 let theFinalCountdown = setInterval(function() {
   document.getElementById("timerHours").innerHTML = currentHours;
@@ -29,7 +29,8 @@ let theFinalCountdown = setInterval(function() {
     currentHours--;
     currentMinutes = 59;
   }
-  if (currentHours === 0 && currentMinutes === 00 && currentSeconds === 00) {
+  if (currentHours === -1) {
+    alert('Вы победили в конкурсе!');
     clearInterval(theFinalCountdown);
   }
 }, 1000);
@@ -40,7 +41,7 @@ let theFinalCountdown = setInterval(function() {
 //   document.getElementById("timer").innerHTML = currentCount;
 //   currentCount--;
 //   if (currentCount < 0) {
-//     window.location.assign("http://www.mozilla.org");
 //     clearInterval(countDown);
+//     window.location.assign("http://www.mozilla.org");
 //   }
 // }, 1000);
