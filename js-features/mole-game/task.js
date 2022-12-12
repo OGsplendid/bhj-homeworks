@@ -1,27 +1,27 @@
 function startGame() {
-  let holes = document.getElementsByClassName('hole');
-  let scores = 0;
-  let losses = 0;
-  let timerId = setInterval(function() {
+    let holes = document.getElementsByClassName('hole');
+    let scores = document.getElementById('dead');
+    let losses = document.getElementById('lost');
+    scores.textContent = 0;
+    losses.textContent = 0;
     for (let i = 0; i < holes.length; i++) {
-      if (holes[i].className.includes('hole hole_has-mole')) {
-        holes[i].className = 'hole';
-      }
-      if (i === Math.floor(Math.random() * 8)) {
-        holes[i].className = 'hole hole_has-mole';
-      }
-      holes[i].onclick = function() {
-        if (holes[i].className.includes('hole hole_has-mole')) {
-          scores++;
-        } else {
-          losses++;
-        }
-      }
+        holes[i].onclick = () => {
+            if (holes[i].className.includes('hole_has-mole')) {
+                scores.textContent++;
+            } else {
+                losses.textContent++;
+            }
+        };
     }
-  }, 1000);
-  if (scores === 10) {
-    alert('You win!');
-  } else if (losses === 10) {
-    alert('You lose!');
-  }
-}
+    if (scores.textContent === 10) {
+        playing = false;
+        scores.textContent = 0;
+        alert('You win!');
+    } else if (losses.textContent === 5) {
+        playing = false;
+        losses.textContent = 0;
+        alert('You lose!');
+    }
+  };
+  
+  startGame();
