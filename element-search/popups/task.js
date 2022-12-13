@@ -1,23 +1,20 @@
 let modalMain = document.getElementById('modal_main');
 modalMain.className = 'modal modal_active';
 let closeBtns = document.getElementsByClassName('modal__close');
-let arrOfBtns = Array.from(closeBtns);
-let firstEl = arrOfBtns.item(0);
-let secondEl = arrOfBtns.item(1);
+let firstElTimes = closeBtns[0];
+let secondElTimes = closeBtns[2];
 
-let modalSuccess = document.getElementById('modal_success');
-let successEl = document.getElementById('show-success');
-let successArr = Array.from(successEl);
-let success = successArr[0];
-
-firstEl.onclick = () => {
+firstElTimes.onclick = () => {
   modalMain.className = 'modal';
 };
 
-secondEl.onclick = () => {
+secondElTimes.onclick = () => {
   modalSuccess.className = 'modal';
 };
 
-success.onclick = () => {
+let modalSuccess = document.getElementById('modal_success');
+let successEl = document.getElementsByClassName('show-success')[0];
+
+successEl.onclick = () => {
   modalSuccess.className = 'modal modal_active';
 };
