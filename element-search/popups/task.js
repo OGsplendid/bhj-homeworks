@@ -10,6 +10,7 @@ firstElTimes.onclick = () => {
 
 secondElTimes.onclick = () => {
   modalSuccess.className = 'modal';
+  modalMain.className = 'modal';
 };
 
 let modalSuccess = document.getElementById('modal_success');
@@ -17,4 +18,5 @@ let successEl = document.getElementsByClassName('show-success')[0];
 
 successEl.onclick = () => {
   modalSuccess.className = 'modal modal_active';
+  modalMain.className = 'modal';
 };
