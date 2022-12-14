@@ -14,11 +14,11 @@ function startGame() {
         };
     }
     if (scores.textContent === 10) {
-        playing = false;
         scores.textContent = 0;
+        losses.textContent = 0;
         alert('You win!');
     } else if (losses.textContent === 5) {
-        playing = false;
+        scores.textContent = 0;
         losses.textContent = 0;
         alert('You lose!');
     }
