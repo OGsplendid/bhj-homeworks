@@ -38,6 +38,7 @@ next.onclick = function() {
 for (let i = 0; i < arrOfDots.length; i++) {
     arrOfDots[i].onclick = function() {
         arrOfSliders.map(el => el.className = 'slider__item');
+        number = i;
         activateSlide(i);
     }
 }
