@@ -9,11 +9,12 @@ for (let i = 0; i < arrOfMenuLinks.length; i++) {
 
   arrOfMenuLinks[i].onclick = function() {
 
-    if (arrOfSubMenues.some(el => el.className === 'menu menu_sub menu_active')) {
-      arrOfSubMenues.forEach(el => el.className = 'menu menu_sub');
-    };
-
     if (subMenuLink && subMenuLink.className === 'menu menu_sub') {
+      arrOfSubMenues.map(el => {
+        if (el.className === 'menu menu_sub menu_active') {
+          el.className = 'menu menu_sub';
+        }
+      });
       subMenuLink.className = 'menu menu_sub menu_active';
       return false;
     } else if (subMenuLink && subMenuLink.className === 'menu menu_sub menu_active') {
