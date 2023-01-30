@@ -15,5 +15,6 @@ for (let i = 0; i < arrOfCloseBtns.length; i++) {
 }
 
 successEl.onclick = () => {
+  modalMain.className = 'modal';
   modalSuccess.className = 'modal modal_active';
 }
