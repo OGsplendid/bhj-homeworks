@@ -11,8 +11,7 @@ let arrOfDots = Array.from(dots);
 
 
 function determineActiveSlide() {
-    let activeSlide = arrOfSliders.find(el => el.className === 'slider__item slider__item_active');
-    return activeSlide;
+    return arrOfSliders.findIndex(el => el.className === 'slider__item slider__item_active');
 }
 
 function activateSlide(slideNumber) {
@@ -21,7 +20,7 @@ function activateSlide(slideNumber) {
 }
 
 previous.onclick = function() {
-    let slideNumber = arrOfSliders.findIndex(determineActiveSlide);
+    let slideNumber = determineActiveSlide();
     slideNumber--;
     if (slideNumber === -1) {
         slideNumber = arrOfSliders.length - 1;
@@ -30,7 +29,7 @@ previous.onclick = function() {
 }
 
 next.onclick = function() {
-    let slideNumber = arrOfSliders.findIndex(determineActiveSlide);
+    let slideNumber = determineActiveSlide();
     slideNumber++;
     if (slideNumber > arrOfSliders.length - 1) {
         slideNumber = 0;
