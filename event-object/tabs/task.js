@@ -3,9 +3,9 @@ let arrOfTabs = Array.from(document.getElementsByClassName('tab'));
 let tabContents = document.getElementsByClassName('tab__content');
 let arrOfTabContents = Array.from(tabContents);
 
-// function activateTab() {
-    
-// }
+// почему не выходит так:
+// let arrOfTabs = Array.from(document.getElementsByClassName('tab'));
+// let arrOfTabContents = Array.from(document.getElementsByClassName('tab__content'));
 
 for (let i = 0; i < tabs.length; i++) {
     arrOfTabs[i].onclick = function() {
