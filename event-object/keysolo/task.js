@@ -4,6 +4,7 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timer = container.querySelector('.timer');
 
     this.reset();
 
@@ -17,13 +18,44 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    function onKey(e) {
+
+      // здесь код для обычного уровня сложности:
+
+      // if (e.key.toLowerCase() === this.currentSymbol.textContent.toLowerCase()) {
+      //   this.success();
+      // } else {
+      //   this.fail();
+      // }
+
+      //здесь я написал код для повышенного уровня сложности #3:
+
+      let inputChar = `Key${this.currentSymbol.textContent.toUpperCase()}`;
+      if (e.code === inputChar) {
+        this.success();
+      } else {
+        this.fail();
+      }
+
+      // Повышенный уровень сложности #1. Здесь в if должно быть некое условие 
+      // (setNewWord??), что когда появляется новое слово, - нужно исполнить скрипт
+
+      // if () {
+      //   this.timer.textContent = this.wordElement.textContent.length;
+      //   let count = this.wordElement.textContent.length * 1000;
+      //   let timerID = setInterval(() => {
+      //         +this.timer.textContent--;
+      //         if (this.timer.textContent < 0) {
+      //           this.fail();
+      //           count = 0;
+      //           clearInterval(timerID);
+      //         };
+      //   }, count);
+      // }
+    };
+
+    let boundOnKey = onKey.bind(this);
+    document.addEventListener('keydown', boundOnKey);
   }
 
   success() {
@@ -87,4 +119,3 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
-
