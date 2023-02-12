@@ -18,6 +18,24 @@ class Game {
   }
 
   registerEvents() {
+
+    if (this.wordElement.textContent.length > 0) {
+      this.timer.textContent = this.wordElement.textContent.length;
+
+      function counter() {
+        this.timer.textContent--;
+        console.log(this.timer.textContent);
+        if (this.timer.textContent < 0) {
+          this.fail();
+          this.setNewWord();
+          this.timer.textContent = this.wordElement.textContent.length;
+        };
+      }
+
+      let boundCounter = counter.bind(this);
+      setInterval(boundCounter, 1000);
+    }
+
     function onKey(e) {
 
       // здесь код для обычного уровня сложности:
@@ -31,6 +49,13 @@ class Game {
       //здесь я написал код для повышенного уровня сложности #3:
 
       let inputChar = `Key${this.currentSymbol.textContent.toUpperCase()}`;
+
+      // if (e.key.toLowerCase().charCodeAt(0)) === this.currentSymbol.textContent.toLowerCase().charCodeAt(0) {
+      //   this.success();
+      // } else {
+      //   this.fail();
+      // }
+
       if (e.code === inputChar) {
         this.success();
       } else {
@@ -39,19 +64,6 @@ class Game {
 
       // Повышенный уровень сложности #1. Здесь в if должно быть некое условие 
       // (setNewWord??), что когда появляется новое слово, - нужно исполнить скрипт
-
-      // if () {
-      //   this.timer.textContent = this.wordElement.textContent.length;
-      //   let count = this.wordElement.textContent.length * 1000;
-      //   let timerID = setInterval(() => {
-      //         +this.timer.textContent--;
-      //         if (this.timer.textContent < 0) {
-      //           this.fail();
-      //           count = 0;
-      //           clearInterval(timerID);
-      //         };
-      //   }, count);
-      // }
     };
 
     let boundOnKey = onKey.bind(this);
