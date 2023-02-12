@@ -22,14 +22,16 @@ class Game {
     if (this.wordElement.textContent.length > 0) {
       this.timer.textContent = this.wordElement.textContent.length;
 
+      // нет, не до конца работает интервал (пишу после отправки дз на проверку). После первого правильно введённого слова, он останавливается...
       function counter() {
         this.timer.textContent--;
-        console.log(this.timer.textContent);
         if (this.timer.textContent < 0) {
           this.fail();
           this.setNewWord();
           this.timer.textContent = this.wordElement.textContent.length;
-        };
+        } else if (this.setNewWord) {
+            this.timer.textContent = this.wordElement.textContent.length;
+        }
       }
 
       let boundCounter = counter.bind(this);
@@ -50,6 +52,7 @@ class Game {
 
       let inputChar = `Key${this.currentSymbol.textContent.toUpperCase()}`;
 
+      // здесь была попытка сделать это другим образом, но коды не совпадают
       // if (e.key.toLowerCase().charCodeAt(0)) === this.currentSymbol.textContent.toLowerCase().charCodeAt(0) {
       //   this.success();
       // } else {
