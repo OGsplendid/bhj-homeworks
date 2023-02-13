@@ -3,10 +3,10 @@
     let viewportHeight = window.innerHeight;
 
     for (let i = 0; i < blocks.length; i++) {
+        let top = blocks[i].getBoundingClientRect().top;
+        let bottom = blocks[i].getBoundingClientRect().bottom;
 
         setInterval(() => {
-            let top = blocks[i].getBoundingClientRect().top;
-            let bottom = blocks[i].getBoundingClientRect().bottom;
             console.log(top, bottom, viewportHeight);
         }, 1000);
 
