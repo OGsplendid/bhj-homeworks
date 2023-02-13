@@ -29,7 +29,7 @@ class Game {
           this.fail();
           this.setNewWord();
           this.timer.textContent = this.wordElement.textContent.length;
-        } else if (this.setNewWord) {
+        } else if (this.setNewWord && this.winsElement !== 0) { // какое здесь прописать условие? Наверное, нужно прописать, что число в this.winsElement увеличивается на 1?
             this.timer.textContent = this.wordElement.textContent.length;
         }
       }
