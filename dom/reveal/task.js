@@ -1,22 +1,17 @@
-(() => {
-    let blocks = Array.from(document.getElementsByClassName('reveal'));
-    let viewportHeight = window.innerHeight;
+let blocks = Array.from(document.getElementsByClassName('reveal'));
+let { innerHeight } = window;
 
+function isVisible() {
     for (let i = 0; i < blocks.length; i++) {
-        let top = blocks[i].getBoundingClientRect().top;
-        let bottom = blocks[i].getBoundingClientRect().bottom;
+        let { top } = blocks[i].getBoundingClientRect();
+        let { bottom } = blocks[i].getBoundingClientRect();
 
-        setInterval(() => {
-            console.log(top, bottom, viewportHeight);
-        }, 1000);
-
-        blocks[i].onscroll = () => {
-
-            if (top < viewportHeight && bottom > 0) {
-                blocks[i].className = 'reveal reveal_active';
-            } else {
-                blocks[i].className = 'reveal';
-            }
+        if (top < innerHeight && bottom > 0) {
+            blocks[i].className = 'reveal reveal_active';
+        } else {
+            blocks[i].className = 'reveal';
         }
     }
-})();
+}
+
+window.addEventListener('scroll', isVisible);
