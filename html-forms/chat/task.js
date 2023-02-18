@@ -5,16 +5,16 @@ let textInputElement = document.getElementById('chat-widget__input');
  chatWidgetSide.onclick = () => {
     chatWidget.classList.add('chat-widget_active');
 
-    let timeoutInitial = setTimeout(() => {
-      messages.innerHTML += `
-      <div class="message">
-        <div class="message__time">${time}</div>
-        <div class="message__text">
-            Вы всё ещё здесь?
-        </div>
-      </div>
-      `;
-    }, 5000);
+    // let timeoutInitial = setTimeout(() => {
+    //   messages.innerHTML += `
+    //   <div class="message">
+    //     <div class="message__time">${time}</div>
+    //     <div class="message__text">
+    //         Вы всё ещё здесь?
+    //     </div>
+    //   </div>
+    //   `;
+    // }, 5000);
 }
 
 textInputElement.addEventListener('keyup', function(e) {
@@ -33,6 +33,10 @@ textInputElement.addEventListener('keyup', function(e) {
     // }, 5000);
 
     let messages = document.getElementById('chat-widget__messages');
+    // setInterval(() => {
+    //   let { top, bottom } = messages.getBoundingClientRect();
+    //   console.log(top, bottom);
+    // }, 1000);
 
     const randomAnswerArr = [
         'До свидания', 
@@ -66,8 +70,13 @@ textInputElement.addEventListener('keyup', function(e) {
     </div>
     `;
 
-  if (e.key === 'Enter') {
-    messages.innerHTML += dialogue;
+  // правильная ли проверка? Ведь под неё подходит и '   '
+  if (clientText && e.key === 'Enter') {
+      messages.innerHTML += dialogue;
+
+      // здесь посмотрел координаты, нижняя граница на уровне 578...
+      let { bottom } = messages.lastElementChild.getBoundingClientRect();
+      bottom = 578;
 
     // почему не получилось очищать поле ввода так: clientText = ''?
     textInputElement.value = '';
