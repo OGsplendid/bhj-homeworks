@@ -1,29 +1,49 @@
-let nestedUls = Array.from(document.getElementsByClassName('interests_active'));
+let inputs = Array.from(document.getElementsByTagName('input'));
 
-// обычный уровень:
-for (let ul of nestedUls) {
-    let mainInput = ul.closest('li').querySelector('input');
-    let nestedInputs = ul.querySelectorAll('input');
-    mainInput.onchange = () => {
-        if (mainInput.checked) {
+function hasChildren() {
+    if (this.closest('li').querySelector('ul')) {
+        let nestedInputs = this.closest('li').querySelector('ul').querySelectorAll('input');
+        if (this.checked) {
             nestedInputs.forEach(el => el.checked = true);
         } else {
             nestedInputs.forEach(el => el.checked = false);
         }
     }
+}
 
-    // function mark() {
-    //     for (let input of nestedInputs) {
-    //         if (input.checked === true) {
-    //             input.closest('ul').closest('.interest').querySelector('input').checked = true;
-    //         }
-    //         if (nestedInputs.every(el => el.indeterminate)) {
-    //             input.closest('ul').closest('.interest').querySelector('input').checked = false;
-    //         }
-    //     }
-    //     mark();
-    // }
-    // for (let input of nestedInputs) {
-    //     input.addEventListener('change', mark);
-    // }
+function hasParent() {
+    if (!this.closest('.interests_active')) {
+        return;
+    }
+
+    let parentInput = this.closest('.interests_active').closest('.interest').querySelector('input');
+    let childInputs = Array.from(parentInput.closest('li').querySelector('ul').querySelectorAll('input'));
+    if (this.checked) {
+        parentInput.checked = true;
+    } else if (childInputs.every(el => el.indeterminate)) {
+        parentInput.checked = false; // вот здесь не получилось
+    }
+   
+    goFurther(parentInput);
+}
+
+function goFurther(el) {
+    if (!el.closest('.interests_active')) {
+        return;
+    }
+
+    let parentInput = el.closest('.interests_active').closest('.interest').querySelector('input');
+    let childInputs = Array.from(parentInput.closest('li').querySelector('ul').querySelectorAll('input'));
+    if (el.checked) {
+        parentInput.checked = true;
+    } else if (childInputs.every(el => el.indeterminate)) {
+        parentInput.checked = false;
+    }
+   
+    goFurther(parentInput);
+}
+
+for (let input of inputs) {
+    input.addEventListener('change', hasParent);
+    input.addEventListener('change', hasChildren);
 }
