@@ -1,57 +1,37 @@
 let chatWidgetSide = document.querySelector('.chat-widget__side');
 let chatWidget = document.querySelector('.chat-widget');
 let textInputElement = document.getElementById('chat-widget__input');
-
- chatWidgetSide.onclick = () => {
-    chatWidget.classList.add('chat-widget_active');
-
-    // let timeoutInitial = setTimeout(() => {
-    //   messages.innerHTML += `
-    //   <div class="message">
-    //     <div class="message__time">${time}</div>
-    //     <div class="message__text">
-    //         Вы всё ещё здесь?
-    //     </div>
-    //   </div>
-    //   `;
-    // }, 5000);
-}
-
-textInputElement.addEventListener('keyup', function(e) {
-
-    // clearTimeout(timeoutInitial);
-    
-    // let timeout = setTimeout(() => {
-    //   messages.innerHTML += `
-    //   <div class="message">
-    //     <div class="message__time">${time}</div>
-    //     <div class="message__text">
-    //         Вы всё ещё здесь?
-    //     </div>
-    //   </div>
-    //   `;
-    // }, 5000);
-
-    let messages = document.getElementById('chat-widget__messages');
-    // setInterval(() => {
-    //   let { top, bottom } = messages.getBoundingClientRect();
-    //   console.log(top, bottom);
-    // }, 1000);
-
-    const randomAnswerArr = [
+let messages = document.getElementById('chat-widget__messages');
+let time = new Date().toLocaleTimeString();
+const randomAnswerArr = [
         'До свидания', 
         'Никогда больше сюда не пишите', 
         'Для вас действует наценка 150 %', 
         'Как же вы нам надоели', 
         'Отстаньте уже от нас!', 
         'Будьте разумны, закройте наш сайт'
-    ];
+];
+let timeoutId;
 
-    // нормальный вариант или можно сделать красивее?
-    let time = `${new Date().getHours()}:${new Date().getMinutes()}`;
+ chatWidgetSide.onclick = () => {
+    chatWidget.classList.add('chat-widget_active');
+    timeoutId = setTimeout(() => {
+      messages.innerHTML += `
+      <div class="message">
+        <div class="message__time">${time}</div>
+        <div class="message__text">
+            Are you here?
+        </div>
+      </div>
+      `;
+    }, 5000);
+}
 
-    // мне кажется, что некоторые ответы появляются чаще остальных. Есть ли вариает лучше?
-    let randomText = randomAnswerArr[Math.floor(Math.random() * randomAnswerArr.length)];
+textInputElement.addEventListener('keypress', function(e) {
+
+  clearTimeout(timeoutId);
+
+  let randomText = randomAnswerArr[Math.floor(Math.random() * randomAnswerArr.length)];
 
     let clientText = textInputElement.value;
 
@@ -73,18 +53,9 @@ textInputElement.addEventListener('keyup', function(e) {
   // правильная ли проверка? Ведь под неё подходит и '   '
   if (clientText && e.key === 'Enter') {
       messages.innerHTML += dialogue;
-
-      // здесь посмотрел координаты, нижняя граница на уровне 578...
-      let { bottom } = messages.lastElementChild.getBoundingClientRect();
-      bottom = 578;
+      messages.scrollIntoView(false);
 
     // почему не получилось очищать поле ввода так: clientText = ''?
     textInputElement.value = '';
-    // let lastMessage = messages.lastElementChild;
-    // console.log(lastMessage);
-    // let bottom = lastMessage.getBoundingClientRect().bottom;
-    // console.log(bottom);
   }
-
-  // clearTimeout(timeout);
 })
