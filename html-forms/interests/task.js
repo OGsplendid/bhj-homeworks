@@ -12,18 +12,7 @@ function hasChildren() {
 }
 
 function hasParent() {
-    if (!this.closest('.interests_active')) {
-        return;
-    }
-
-    let parentInput = this.closest('.interests_active').closest('.interest').querySelector('input');
-    let childInputs = Array.from(parentInput.closest('li').querySelector('ul').querySelectorAll('input'));
-    if (this.checked) {
-        parentInput.checked = true;
-    } else if (childInputs.every(el => el.indeterminate)) {
-        parentInput.checked = false; // вот здесь не получилось
-    }
-   
+    let parentInput = this;
     goFurther(parentInput);
 }
 
