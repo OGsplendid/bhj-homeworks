@@ -18,17 +18,17 @@ function addTask() {
 }
 
 tasksAdd.onclick = () => {
-    if (tasksInput.value !== '') {
+    if (tasksInput.value.trim() !== '') {
         addTask();
         tasksInput.value = '';
-        return false;
     }
+    return false;
 }
 
 tasksList.onclick = function(event) {
     let target = event.target;
         
-    if (target.tagName !== 'A') {
+    if (!target.classList.contains('task__remove')) {
         return;
     }
     let parentDiv = target.closest('.task');
