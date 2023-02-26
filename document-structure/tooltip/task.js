@@ -5,16 +5,18 @@ for (let tooltip of tooltips) {
     tooltip.onclick = () => {
 
         if (tooltip.childNodes.length === 1) {
-            tooltips.forEach(el => el.classList.remove('tooltip_active'));
-            tooltip.classList.add('tooltip_active');
-            tooltip.appendChild(tip);
+            tooltip.insertAdjacentElement('afterEnd', tip);
             tip.classList.add('tooltip_active');
             tip.textContent = tooltip.title;
+            tip.style.top = tooltip.getBoundingClientRect().top + 20 + `px`;
+            tip.style.left = tooltip.getBoundingClientRect().left + `px`;
         } else {
             tooltip.classList.toggle('tooltip_active');
             tip.classList.toggle('tooltip_active');
         }
-
         return false;
     }
+}
+window.onscroll = () => {
+    tip.classList.remove('tooltip_active');
 }
