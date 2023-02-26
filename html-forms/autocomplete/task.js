@@ -68,34 +68,22 @@ class Autocomplete {
   }
 
   getMatches( text ) {
-    let index = 0;
 
-    function search() {
-      for (let i = 0; i < this.input.options.length; i++) {
-        console.log(this.input.options[i].text[index].toLowerCase());
-        if (this.input.options[i].text[index].toLowerCase().includes(text[text.length - 1].toLowerCase())) {
-          return [
-            {
-              text: options[i].text,
-              value: options[i].value
-            }
-          ];
-        } else {
-          return;
-        }
+    for (let i = 0; i < this.input.options.length; i++) {
+      if (this.input.options[i].textContent.includes(text)) {
+        return [
+          {
+            text: this.input.options[i].textContent,
+            value: this.input.options[i].value
+          }
+        ]
       }
-      index++;
     }
-
-    let boundSearch = search.bind(this);
-
-    this.valueElement.addEventListener('keyup', boundSearch);
 
     /*
       TODO: этот метод нужно дописать
       text - фраза, которую вводят в поле поиска
       Метод должен вернуть массив.
-
       Он формируется на основе списка опций select-элемента (this.input)
       Подходящие опции - те, чей текст содержит то, что есть в аргументе text
       Необходимо вернуть массив объектов со свойствами:
