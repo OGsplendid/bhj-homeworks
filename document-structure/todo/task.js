@@ -1,6 +1,7 @@
 let tasksInput = document.getElementById('task__input');
 let tasksAdd = document.getElementById('tasks__add');
 let tasksList = document.getElementById('tasks__list');
+let storage = [];
 
 function createNewTask() {
     let taskDiv = document.createElement('div');
@@ -14,7 +15,11 @@ function addTask() {
     let taskText = newTask.querySelector('.task__title');
     taskText.textContent = tasksInput.value;
     tasksList.insertAdjacentElement('beforeEnd', newTask);
-    // localStorage.setItem(`${++localStorage.length}`, newTask);
+
+    storage.push(newTask.outerHTML);
+    console.log(storage)
+    localStorage.clear();
+    localStorage.setItem('taskArray', JSON.stringify(storage));
 }
 
 tasksAdd.onclick = () => {
@@ -32,14 +37,33 @@ tasksList.onclick = function(event) {
         return;
     }
     let parentDiv = target.closest('.task');
+    
+    storage.splice(storage.indexOf(parentDiv), 1);
+    localStorage.clear();
+    localStorage.setItem('taskArray', storage);
+
+    // почему на получалось так? Есть догадка, но хотелось бы знать точно
+    // let keys = Object.keys(localStorage);
+
+    // for (let i = 0; i < keys.length; i++) {
+    //     if (localStorage[i] === `${parentDiv}`) {
+    //         console.log(localStorage[i])
+    //     }
+    // }
+
     parentDiv.remove();
 }
 
-// //localStorage
-// if (localStorage.length != 0) {
-//     for (let i = 0; i < localStorage.length; i++) {
-//         let key = localStorage.key(i);
-//         let template = `${localStorage.getItem(key)}`
-//         tasksList.insertAdjacentHTML('afterbegin', template);
-//     }
-// }
+
+window.onload = () => {
+    if (localStorage.length !== 0) {
+        let storedString = JSON.parse(localStorage.getItem('taskArray'));
+        storage.push(storedString)
+
+        console.log(storage);
+
+        // for (let i = 0; i < storage.length; i++) {
+        //     tasksList.insertAdjacentElement('beforeEnd', storage[i]);
+        // }
+    }
+}
