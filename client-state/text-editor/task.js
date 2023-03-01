@@ -8,7 +8,12 @@ editor.onkeyup = () => {
 
 window.onload = () => {
     if (localStorage.getItem('text')) {
-        let storedText = JSON.parse(localStorage.getItem('text'));
+        let storedText;
+        try {
+            storedText = JSON.parse(localStorage.getItem('text'));
+        } catch(e){
+            return null;
+        }
         editor.value = storedText;
     }
 }
