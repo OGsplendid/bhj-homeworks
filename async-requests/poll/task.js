@@ -37,7 +37,6 @@ function getStats(request) {
         if (request.readyState === request.DONE) {
 
             let response = JSON.parse(request.response);
-            console.log(response)
             for (let item of response.stat) {
 
                 let div = `<div>${item.answer}</div><div>${item.votes}</div>`;
@@ -49,8 +48,7 @@ function getStats(request) {
 
 pollAnswers.onclick = (e) => {
 
-    let target = e.target;
-    if (target.classList.contains('poll__answer')) {
+    if (e.target.classList.contains('poll__answer')) {
 
         alert('Спасибо, ваш голос засчитан!');
         pollAnswers.classList.add('poll__hidden');
