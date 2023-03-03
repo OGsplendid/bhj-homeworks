@@ -54,7 +54,6 @@ pollAnswers.onclick = (e) => {
 
         alert('Спасибо, ваш голос засчитан!');
         pollAnswers.classList.add('poll__hidden');
-        let index = answersArr.indexOf(e.target.textContent);
 
         let xhr2 = new XMLHttpRequest();
         xhr2.open('POST', 'https://students.netoservices.ru/nestjs-backend/poll');
