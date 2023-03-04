@@ -2,7 +2,6 @@ let pollTitle = document.getElementById('poll__title');
 let pollAnswers = document.getElementById('poll__answers');
 let answerId;
 let answersArr;
-let answer;
 
 // создаю запрос на получение экземпляра голосования
 let xhr = new XMLHttpRequest();
@@ -23,7 +22,6 @@ xhr.onreadystatechange = () => {
         let title = response.data.title;
         answerId = response.id;
         answersArr = response.data.answers;
-        index = answersArr.indexOf(answer);
         for (let option of answersArr) {
             setPoll(title, option);
         }
