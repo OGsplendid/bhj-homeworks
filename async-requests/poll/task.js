@@ -1,6 +1,6 @@
 let pollTitle = document.getElementById('poll__title');
 let pollAnswers = document.getElementById('poll__answers');
-let answerId;
+let voteId;
 let answersArr;
 
 // создаю запрос на получение экземпляра голосования
@@ -20,7 +20,7 @@ xhr.onreadystatechange = () => {
     if (xhr.readyState === xhr.DONE) {
         let response = JSON.parse(xhr.response);
         let title = response.data.title;
-        answerId = response.id;
+        voteId = response.id;
         answersArr = response.data.answers;
         for (let option of answersArr) {
             setPoll(title, option);
@@ -54,7 +54,7 @@ pollAnswers.onclick = (e) => {
         let xhr2 = new XMLHttpRequest();
         xhr2.open('POST', 'https://students.netoservices.ru/nestjs-backend/poll');
         xhr2.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr2.send(`vote=${answerId}&answer=${answersArr.indexOf(e.target.textContent)}`);
+        xhr2.send(`vote=${voteId}&answer=${answersArr.indexOf(e.target.textContent)}`);
 
         getStats(xhr2);
     }
