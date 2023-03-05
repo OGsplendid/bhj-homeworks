@@ -10,21 +10,19 @@ function createNewTask() {
     return taskDiv;
 }
 
-function addTask() {
+function addTask(text) {
     let newTask = createNewTask();
     let taskText = newTask.querySelector('.task__title');
-    taskText.textContent = tasksInput.value;
+    taskText.textContent = text;
     tasksList.insertAdjacentElement('beforeEnd', newTask);
-
-    storage.push(newTask.outerHTML);
-    console.log(storage)
-    localStorage.clear();
+    
     localStorage.setItem('taskArray', JSON.stringify(storage));
 }
 
 tasksAdd.onclick = () => {
     if (tasksInput.value.trim() !== '') {
-        addTask();
+        storage.push(tasksInput.value);
+        addTask(tasksInput.value);
         tasksInput.value = '';
     }
     return false;
@@ -38,18 +36,8 @@ tasksList.onclick = function(event) {
     }
     let parentDiv = target.closest('.task');
     
-    storage.splice(storage.indexOf(parentDiv), 1);
-    localStorage.clear();
-    localStorage.setItem('taskArray', storage);
-
-    // почему на получалось так? Есть догадка, но хотелось бы знать точно
-    // let keys = Object.keys(localStorage);
-
-    // for (let i = 0; i < keys.length; i++) {
-    //     if (localStorage[i] === `${parentDiv}`) {
-    //         console.log(localStorage[i])
-    //     }
-    // }
+    storage.splice(storage.indexOf(target.closest('div').querySelector('.task__title').textContent), 1);
+    localStorage.setItem('taskArray', JSON.stringify(storage));
 
     parentDiv.remove();
 }
@@ -57,13 +45,10 @@ tasksList.onclick = function(event) {
 
 window.onload = () => {
     if (localStorage.length !== 0) {
-        let storedString = JSON.parse(localStorage.getItem('taskArray'));
-        storage.push(storedString)
+        storage = JSON.parse(localStorage.getItem('taskArray'));
 
-        console.log(storage);
-
-        // for (let i = 0; i < storage.length; i++) {
-        //     tasksList.insertAdjacentElement('beforeEnd', storage[i]);
-        // }
+        storage.forEach(el => {
+            addTask(el);
+        })
     }
 }
