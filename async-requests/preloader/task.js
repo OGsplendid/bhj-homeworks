@@ -11,10 +11,14 @@ function setValute(code, value) {
 }
 
 xhr.onload = () => {
-    loader.classList.remove('loader_active');
-    let response = JSON.parse(xhr.response);
-    let valutes = response.response.Valute;
-    for (let valute in valutes) {
-        setValute(valutes[valute].CharCode, valutes[valute].Value);
+    if (xhr.status === 200) {
+        loader.classList.remove('loader_active');
+        let response = JSON.parse(xhr.response);
+        let valutes = response.response.Valute;
+        for (let valute in valutes) {
+            setValute(valutes[valute].CharCode, valutes[valute].Value);
+        }
+    } else {
+        alert(`${xhr.statusText} - error ${xhr.status}`);
     }
 }
