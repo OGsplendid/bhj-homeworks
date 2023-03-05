@@ -1,7 +1,7 @@
-let items = document.getElementById('items');
-let loader = document.getElementById('loader');
+const items = document.getElementById('items');
+const loader = document.getElementById('loader');
 
-let xhr = new XMLHttpRequest();
+const xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://students.netoservices.ru/nestjs-backend/slow-get-courses');
 xhr.send();
 
@@ -10,13 +10,11 @@ function setValute(code, value) {
     items.insertAdjacentHTML('beforeend', div);
 }
 
-xhr.onreadystatechange = () => {
-    if (xhr.readyState === xhr.DONE) {
-        loader.classList.remove('loader_active');
-        let response = JSON.parse(xhr.response);
-        let valutes = response.response.Valute;
-        for (let valute in valutes) {
-            setValute(valutes[valute].CharCode, valutes[valute].Value);
-        }
+xhr.onload = () => {
+    loader.classList.remove('loader_active');
+    let response = JSON.parse(xhr.response);
+    let valutes = response.response.Valute;
+    for (let valute in valutes) {
+        setValute(valutes[valute].CharCode, valutes[valute].Value);
     }
 }
