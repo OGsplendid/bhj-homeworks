@@ -57,5 +57,16 @@ textInputElement.addEventListener('keypress', function(e) {
       messages.scrollIntoView(false);
 
     textInputElement.value = '';
+
+    timeoutId = setTimeout(() => {
+      messages.innerHTML += `
+      <div class="message">
+        <div class="message__time">${time}</div>
+        <div class="message__text">
+            Are you still here?
+        </div>
+      </div>
+      `;
+    }, 5000);
   }
 })
