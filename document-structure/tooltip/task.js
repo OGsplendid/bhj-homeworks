@@ -6,7 +6,7 @@ for (let tooltip of tooltips) {
 
         if (tooltip.childNodes.length === 1) {
             tooltip.insertAdjacentElement('afterEnd', tip);
-            tip.classList.add('tooltip_active');
+            tip.classList.toggle('tooltip_active');
             tip.textContent = tooltip.title;
             tip.style.top = tooltip.getBoundingClientRect().top + 20 + `px`;
             tip.style.left = tooltip.getBoundingClientRect().left + `px`;
