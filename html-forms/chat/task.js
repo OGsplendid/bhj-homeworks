@@ -50,12 +50,10 @@ textInputElement.addEventListener('keypress', function(e) {
     </div>
     `;
 
-  // правильная ли проверка? Ведь под неё подходит и '   '
-  if (clientText && e.key === 'Enter') {
+  if (clientText.trim() && e.key === 'Enter') {
       messages.innerHTML += dialogue;
       messages.scrollIntoView(false);
 
-    // почему не получилось очищать поле ввода так: clientText = ''?
     textInputElement.value = '';
   }
 })
