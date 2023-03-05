@@ -2,7 +2,7 @@ let chatWidgetSide = document.querySelector('.chat-widget__side');
 let chatWidget = document.querySelector('.chat-widget');
 let textInputElement = document.getElementById('chat-widget__input');
 let messages = document.getElementById('chat-widget__messages');
-let time = new Date().toLocaleTimeString();
+let time;
 const randomAnswerArr = [
         'До свидания', 
         'Никогда больше сюда не пишите', 
@@ -14,6 +14,7 @@ const randomAnswerArr = [
 let timeoutId;
 
  chatWidgetSide.onclick = () => {
+    time = new Date().toLocaleTimeString();
     chatWidget.classList.add('chat-widget_active');
     timeoutId = setTimeout(() => {
       messages.innerHTML += `
@@ -32,6 +33,7 @@ textInputElement.addEventListener('keypress', function(e) {
   clearTimeout(timeoutId);
 
   let randomText = randomAnswerArr[Math.floor(Math.random() * randomAnswerArr.length)];
+    time = new Date().toLocaleTimeString();
 
     let clientText = textInputElement.value;
 
