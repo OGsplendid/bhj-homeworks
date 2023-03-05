@@ -1,9 +1,16 @@
-let inputs = Array.from(document.getElementsByTagName('input'));
+let checkboxes = document.querySelector('ul');
 
-function hasChildren() {
-    if (this.closest('li').querySelector('ul')) {
-        let nestedInputs = this.closest('li').querySelector('ul').querySelectorAll('input');
-        if (this.checked) {
+checkboxes.onchange = function(e) {
+    if (e.target.classList.contains('interest__check')) {
+        hasChildren(e.target);
+        hasParent(e.target);
+    }
+}
+
+function hasChildren(el) {
+    if (el.closest('li').querySelector('ul')) {
+        let nestedInputs = el.closest('li').querySelector('ul').querySelectorAll('input');
+        if (el.checked) {
             nestedInputs.forEach(el => el.checked = true);
         } else {
             nestedInputs.forEach(el => el.checked = false);
@@ -11,28 +18,20 @@ function hasChildren() {
     }
 }
 
-function hasParent() {
-    let parentInput = this;
-    goFurther(parentInput);
-}
-
-function goFurther(el) {
-    if (!el.closest('.interests_active')) {
+function hasParent(el) {
+    if (!el.closest('ul').closest('.interest')) {
         return;
     }
 
-    let parentInput = el.closest('.interests_active').closest('.interest').querySelector('input');
-    let childInputs = Array.from(parentInput.closest('li').querySelector('ul').querySelectorAll('input'));
-    if (el.checked) {
+    let parentInput = el.closest('ul').closest('li').querySelector('input');
+    let parentChildInputs = Array.from(parentInput.closest('li').querySelector('ul').querySelectorAll('input'));
+    console.log(parentChildInputs)
+
+    if (el.checked || parentChildInputs.some(item => item.checked)) {
         parentInput.checked = true;
-    } else if (childInputs.every(el => el.indeterminate)) {
+    } else {
         parentInput.checked = false;
     }
-   
-    goFurther(parentInput);
-}
 
-for (let input of inputs) {
-    input.addEventListener('change', hasParent);
-    input.addEventListener('change', hasChildren);
+    hasParent(parentInput);
 }
