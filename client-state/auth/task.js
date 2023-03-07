@@ -1,5 +1,7 @@
 const form = document.getElementById('signin__form');
-let idArray = [];
+const signin = document.getElementById('signin');
+const welcome = document.getElementById('welcome');
+const logoutBtn = document.getElementById('logout__btn');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -11,31 +13,42 @@ form.addEventListener('submit', (e) => {
 
     xhr.onload = () => {
         let response = JSON.parse(xhr.response);
-        let welcome = document.getElementById('welcome');
-        welcome.classList.add('welcome_active');
         console.log(response);
 
         if (!response.success) {
-            welcome.textContent = 'Неверный логин/пароль';
+            alert('Неверный логин/пароль');
             return;
         }
 
-        let userId = document.getElementById('user_id');
-        userId.textContent = response.user_id;
-
-        if (idArray.find(el => el === response.user_id)) {
-            userId.textContent = idArray.find(el => el === response.user_id);
-        } else {
-            idArray.push(response.user_id);
-            localStorage.setItem('id', JSON.stringify(idArray));
-        }
+        loggedIn(response.user_id);
 
         form.reset();
     }
 })
 
+function loggedIn(id) {
+    welcome.classList.add('welcome_active');
+    signin.classList.remove('signin_active');
+    logoutBtn.classList.remove('logout__hidden');
+
+    let userId = document.getElementById('user_id');
+    userId.textContent = id;
+
+    localStorage.setItem('storedUserId', id);
+}
+
+function loggedOut() {
+    welcome.classList.remove('welcome_active');
+    signin.classList.add('signin_active');
+    logoutBtn.classList.add('logout__hidden');
+
+    localStorage.removeItem('storedUserId');
+}
+
+logoutBtn.addEventListener('click', loggedOut);
+
 window.onload = () => {
-    if (localStorage.getItem('id')) {
-        idArray = JSON.parse(localStorage.getItem('id'));
+    if (localStorage.getItem('storedUserId')) {
+        loggedIn(localStorage.getItem('storedUserId'));
     }
 }
